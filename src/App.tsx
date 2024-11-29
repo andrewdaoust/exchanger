@@ -43,7 +43,7 @@ export default function App() {
     }
   };
 
-  return <MantineProvider theme={theme}>
+  return <MantineProvider defaultColorScheme="dark" theme={theme}>
     <Authenticator>
       {({ signOut, user }) => (
         <main>

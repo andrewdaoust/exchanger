@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MantineProvider, Select, NumberInput, Flex, Container, Center, Button } from "@mantine/core";
+import { MantineProvider, Select, NumberInput, Flex, Container, Center, UnstyledButton } from "@mantine/core";
 import { DatePickerInput, DateValue } from "@mantine/dates";
 import { IconArrowsLeftRight } from '@tabler/icons-react';
 
@@ -21,8 +21,7 @@ Amplify.configure(outputs);
 export default function App() {
   const [date, setDate] = useState<Date | null>(null);
   const [exchange, setExchange] = useState<any>({});
-  const [currency, setCurrency] = useState<string>('')
-  // const [rate, setRate] = useState<Number | null>(null);
+  const [currency, setCurrency] = useState<string>('');
   const [money, setMoney] = useState<string | number>('');
 
   const onDateChange = async (value: DateValue) => {
@@ -47,8 +46,6 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>Hello {user?.username}</h1>
-          <Button onClick={signOut}>Sign out</Button>
           <Center>
             <h1>The Benevity Sucks Currency Converter</h1>
           </Center>
@@ -56,7 +53,6 @@ export default function App() {
             <DatePickerInput
               className={classes.picker}
               value={date}
-              // valueFormat="YYYY-MM-DD"
               onChange={onDateChange}
               placeholder="Pick a date"
               label="Pick a date"
@@ -85,6 +81,12 @@ export default function App() {
           </Flex>
 
           <CurrencyConversion money={money} currency={currency} rates={exchange} />
+          <div className={classes.foot}>
+            Hello {user?.signInDetails?.loginId} | <UnstyledButton 
+              className={classes.signOutButton} 
+              onClick={signOut}
+            >Sign out</UnstyledButton>
+          </div>
         </main>
       )}
     </Authenticator>
@@ -105,7 +107,6 @@ interface CurrencyConversionProps {
 }
 
 function CurrencyConversion({ money, currency, rates }: CurrencyConversionProps) {
-  // function CurrencyConversion({ money, currency, rates }) {
   if (money === '' || currency === '' || rates.length === 0) {
     return <></>
   }
@@ -115,7 +116,6 @@ function CurrencyConversion({ money, currency, rates }: CurrencyConversionProps)
   return (
     <Center>
       <Flex className={classes.wrapper}>
-        {/* {`${currencySymbol}${money} (${currency}) = $${converted} (USD)`} */}
         <CurrencyBox money={money} currency={currency} symbol={currencySymbol} />
         <div className={classes.iconWrapper}>
           <IconArrowsLeftRight className={classes.icon} stroke={1.5} />

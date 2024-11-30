@@ -1,0 +1,10 @@
+.appFooter {
+  margin-bottom: 1px;
+  margin-left : 0.25rem;
+  position: fixed;
+  bottom: 0;
+}
+
+.signOutButton:hover {
+  text-decoration: underline;
+}
